@@ -1,17 +1,99 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>
+      Registro de Citas
+    </ion-title>
+    <ion-buttons start>
+        <button ion-button icon-only (click)="milogin()">
+          <ion-icon name="person"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addEvent()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
+ 
+<ion-content>
+<ion-calendar 
+(onDaySelect)="onDaySelect($event)"
+(onTimeSelected)="onTimeSelected($event)"
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+step="30"
+class="calendar">
+</ion-calendar>
+<ion-card  *ngIf="nombre!=''">
+    
+    <ion-card-content text-wrap> 
+        <ion-card-title color="danger">
+            <h2>Sumario Citas</h2>
+        </ion-card-title>
+        
+<ion-list>
+    <ion-item *ngIf="numerocitas > 0; else templateName" color="primary"  >
+        <ion-row>
+         <ion-col col-6>
+           <h2 ion-text color="light" >Nombre</h2>
+        
+          </ion-col>
+          <ion-col col-3>
+              <h2 ion-text color="light" >Cédula</h2>
+        
+          </ion-col>
+          <ion-col col-3>
+              <ion-icon name="call" ></ion-icon>
+          </ion-col>
+          
+        </ion-row>        
+    </ion-item>
+    <ng-template #templateName>
+      <ion-item color="secondary">
+          <h2 >No hay personas registradas para este día</h2>
+
+      </ion-item>
+    </ng-template>
+    <ion-item-sliding *ngFor="let registro of registros">
+      <ion-item class="mitam" ion-text-color="light">
+        <ion-row>
+          <ion-col col-6 style="font-size:14">
+          <h6>{{registro.nombre}}</h6>
+        
+          </ion-col>
+          <ion-col col-3>
+              <h5>{{registro.cedula}}</h5>
+        
+          </ion-col>
+          <ion-col col-3>
+              <h4>{{registro.telefono}}</h4>
+        
+          </ion-col>
+          
+        </ion-row> 
+      </ion-item>
+    <ion-item-options side="right">
+        <button ion-button color="secondary" (click)="visto(k)">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          Atendido
+        </button>
+    </ion-item-options>
+  </ion-item-sliding>
+
+</ion-list>
+</ion-card-content>
+</ion-card>
+<ion-item>
+    <h2>Número de Citas</h2>
+    <ion-note item-end>
+        <ion-badge color="danger">
+        <h2>{{numerocitas}}</h2>
+        </ion-badge>
+    </ion-note> 
+  </ion-item>
 </ion-content>
+<ion-footer >
+  <ion-item *ngIf="nombre!=''">Administrando:{{nombre}}</ion-item>
+
+  
+</ion-footer>
