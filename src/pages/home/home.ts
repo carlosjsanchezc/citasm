@@ -36,20 +36,25 @@ export class HomePage {eventSource = [];
   onDaySelect(event) {
  
     let theday=parseInt(event.date);
-    if (event.date<10)
+    console.log('TheDay:',theday);
+    this.theday=parseInt(event.date).toString();
+    if (theday<10)
     {
-      theday='0'+parseInt(event.date);
+      this.theday='0'+parseInt(event.date).toString();
       
     }
 
     let themonth=parseInt(event.month+1);
-    if (event.month<10)
+    this.themonth=themonth.toString();
+    if (themonth<10)
     {
-      themonth='0'+themonth;
+      this.themonth='0'+themonth;
     }
  
     console.log('Buscando Data');
-    this.selectedDay=parseInt(event.year)+'-'+themonth+'-'+theday+'T00:00:00.183Z';
+    
+    this.selectedDay=parseInt(event.year)+'-'+this.themonth+'-'+this.theday+'T00:00:00.183Z';
+    console.log(this.selectedDay);
     let eldia=parseInt(event.year)+'-'+themonth+'-'+theday;
     this.HttpService.getDia(eldia).subscribe((data) => 
     {
@@ -71,14 +76,15 @@ export class HomePage {eventSource = [];
 
     myModal.onDidDismiss(data => {
       console.log('Saliendo');
-      console.log(data);
-      let loader = this.loadingCtrl.create({
-        content: "Procesando Datos...",
-        duration: 3000
-      });
-      loader.present();
+    
+
       if (data) {
-        this.HttpService.agregarCita(data).subscribe((data) => 
+        let loader = this.loadingCtrl.create({
+          content: "Procesando Datos...",
+          duration: 3000
+        });
+        loader.present();
+        this.HttpService.agregarCita(data).subscribe((data2) => 
         {
             console.log('Llego');
           let alert = this.alertCtrl.create({
@@ -87,14 +93,14 @@ export class HomePage {eventSource = [];
             buttons: ['Ok']
           });
           alert.present();
-          let eldia=data.fecha;
+          let eldia=data2.fecha;
           console.log('Refreshing');
           console.log(eldia);
-          this.HttpService.getDia(eldia).subscribe((data) => 
+          this.HttpService.getDia(eldia).subscribe((data3) => 
           {
           
-          console.log(data['results']);
-            this.registros=data['results'];
+          console.log(data3['results']);
+            this.registros=data3['results'];
         },
           (error) =>{
           console.error(error);
@@ -121,23 +127,38 @@ export class HomePage {eventSource = [];
       console.log('Validando Login');
       console.log(data);
        if (data) {
-        let loader = this.loadingCtrl.create({
-          content: "Validando Login...",
-          duration: 3000
-        });
+       
 
-        loader.present();
+     
         this.HttpService.login(data.user,data.password).subscribe((data2) => 
         {
-          console.log('Data2:');
-          console.log(data2);
-          this.users=data2['results'];
-          console.log('Users;');
-          console.log(this.users);
-          console.log('Nombre:');
-          this.nombre=this.users[0].nombre;
-          console.log(this.nombre);
-        }
+          if (data2['success']==true){
+            let loader = this.loadingCtrl.create({
+              content: "Validando Login...",
+              duration: 3000
+            });
+            loader.present();
+            console.log('Data2:');
+            console.log(data2);
+            this.users=data2['results'];
+            console.log('Users;');
+            console.log(this.users);
+            console.log('Nombre:');
+            this.nombre=this.users[0].nombre;
+            console.log(this.nombre);
+  
+          }
+          else {
+            let alert = this.alertCtrl.create({
+              title: 'Login',
+              subTitle: 'Nombre de usuario o clave incorrecta',
+              buttons: ['Ok']
+            });
+            alert.present();
+
+          }
+
+                  }
         ,
         (error) =>{
         console.error(error);

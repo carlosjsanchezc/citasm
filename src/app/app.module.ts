@@ -14,7 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginModalPage } from '../pages/login-modal/login-modal';
 
 import { EventModalPage } from '../pages/event-modal/event-modal';
-import { CalendarModule } from 'ionic3-calendar';
+import { CalendarModule } from 'ionic3-calendar-en';
 import { HttpService } from '../providers/http-service';
  
 @NgModule({
