@@ -24,26 +24,23 @@
 step="30"
 class="calendar">
 </ion-calendar>
-<ion-card  *ngIf="nombre!=''">
+<div  *ngIf="nombre!=''">
     
-    <ion-card-content text-wrap> 
-        <ion-card-title color="danger">
             <h2>Sumario Citas</h2>
-        </ion-card-title>
         
 <ion-list>
     <ion-item *ngIf="numerocitas > 0; else templateName" color="primary"  >
         <ion-row>
          <ion-col col-6>
-           <h2 ion-text color="light" >Nombre</h2>
+           <h2 ion-text color="light" style="font-size:1.2rem" >Nombre</h2>
         
           </ion-col>
           <ion-col col-3>
-              <h2 ion-text color="light" >Cédula</h2>
+              <h2 ion-text color="light" style="font-size:1.2rem" >Cédula</h2>
         
           </ion-col>
           <ion-col col-3>
-              <ion-icon name="call" ></ion-icon>
+              <ion-icon name="call" style="font-size:1.2rem" ></ion-icon>
           </ion-col>
           
         </ion-row>        
@@ -57,33 +54,35 @@ class="calendar">
     <ion-item-sliding *ngFor="let registro of registros">
       <ion-item class="mitam" ion-text-color="light">
         <ion-row>
-          <ion-col col-6 style="font-size:14">
-          <h6>{{registro.nombre}}</h6>
+          <ion-col col-4 style="font-size:1.2rem">
+          <h2 style="font-size:1.2rem;color:blue;font-weight:bold;font-style:italic">{{registro.nombre}}</h2>
+          <h3 style="font-size:1rem;color:blue;font-weight:bold">{{registro.patologia}}</h3>
         
           </ion-col>
           <ion-col col-3>
-              <h5>{{registro.cedula}}</h5>
+              <h5 style="font-size:0.8rem">{{registro.cedula}}</h5>
         
           </ion-col>
           <ion-col col-3>
-              <h4>{{registro.telefono}}</h4>
+              <h4 style="font-size:0.8rem">{{registro.telefono}}</h4>
         
           </ion-col>
           
+          <ion-col col-2 style="font-size:2rem" color="light">
+              <ion-icon  *ngIf="registro.atendido==1" name="checkbox"></ion-icon>
+              <ion-icon  *ngIf="registro.atendido==0" name="eye"></ion-icon>
+
+          </ion-col>
         </ion-row> 
       </ion-item>
     <ion-item-options side="right">
-        <button ion-button color="secondary" (click)="visto(k)">
+        <button ion-button color="secondary" (click)="visto(registro.id)">
           <ion-icon name="checkmark-circle"></ion-icon>
           Atendido
         </button>
     </ion-item-options>
   </ion-item-sliding>
-
-</ion-list>
-</ion-card-content>
-</ion-card>
-<ion-item text-wrap>
+  <ion-item text-wrap>
     <h2>Número de Citas ya programadas</h2>
     <ion-note item-end>
         <ion-badge color="danger">
@@ -91,6 +90,20 @@ class="calendar">
         </ion-badge>
     </ion-note> 
   </ion-item>
+
+
+</ion-list>
+</div>
+<div  *ngIf="nombre==''">
+  <ion-item text-wrap>
+    <h2>Número de Citas ya programadas</h2>
+    <ion-note item-end>
+        <ion-badge color="danger">
+        <h2>{{numerocitas}}</h2>
+        </ion-badge>
+    </ion-note> 
+  </ion-item>
+</div>
 </ion-content>
 <ion-footer >
   <ion-item *ngIf="nombre!=''">Administrando:{{nombre}}</ion-item>

@@ -2,7 +2,8 @@ import { NavController,ModalController, AlertController,LoadingController } from
 import { Component } from '@angular/core';
 import { EventModalPage } from '../event-modal/event-modal';
 import { LoginModalPage } from '../login-modal/login-modal';
-
+import * as moment from 'moment';
+import 'moment/locale/es';
 import { HttpService } from '../../providers/http-service';
 
 
@@ -27,6 +28,8 @@ export class HomePage {eventSource = [];
 
   constructor(public navCtrl: NavController,private modalCtrl: ModalController, public HttpService:HttpService, public alertCtrl:AlertController,public loadingCtrl:LoadingController) 
   { 
+    moment.locale('es');
+console.log('Momento:',moment.locale());
     this.viewTitle='Prueba Modal';
     this.nombre='';
   }
@@ -68,7 +71,14 @@ export class HomePage {eventSource = [];
     console.error(error);
     });
   }  
-
+visto(id){
+  this.HttpService.cambiavisto(id).subscribe((data) => 
+        {
+        },(error) =>{
+          console.error(error);
+          });
+          
+}
   addEvent() {
    
     let myModal = this.modalCtrl.create(EventModalPage, {selectedDay: this.selectedDay});
@@ -93,7 +103,8 @@ export class HomePage {eventSource = [];
             buttons: ['Ok']
           });
           alert.present();
-          let eldia=data2.fecha;
+          let eldia=data['fecha'];
+          console.log('Fecha:',eldia);
           console.log('Refreshing');
           console.log(eldia);
           this.HttpService.getDia(eldia).subscribe((data3) => 
