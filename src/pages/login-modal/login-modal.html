@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-buttons start>
+        <button ion-button icon-only (click)="cancel()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Administración</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content class="login-content" padding>
+    <ion-row class="logo-row">
+      <ion-col></ion-col>
+      <ion-col width-67>
+        <img src="../assets/imgs/login.png"/>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    
+      <div text-center>
+        Area Reservada para Administrador de las citas
+      </div>
+  
+    <div class="login-box">
+      <form  #registerForm="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+              
+              <ion-item>
+                <ion-input type="text" placeholder="Usuario" name="user" [(ngModel)]="user" required></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-input type="password" placeholder="Clave" name="password" [(ngModel)]="password" required></ion-input>
+              </ion-item>
+              
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button block class="submit-btn" (click)="log_in()" [disabled]="!registerForm.form.valid">Login</button>
+           
+          </ion-col>
+        </ion-row>
+        
+      </form>
+    </div>
+  </ion-content>

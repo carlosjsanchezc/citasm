@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Programar Cita</ion-title>
+  </ion-navbar>
+</ion-header>
+ 
+<ion-content>
+    
+     <ion-item><ion-label>Nombre del Paciente</ion-label>
+      <ion-input type="text" [(ngModel)]="nombre" required  (input)="validacampos()"></ion-input>
+     </ion-item>
+
+    <ion-item><ion-label>Cédula</ion-label>
+      <ion-input type="text" [(ngModel)]="cedula" required (input)="validacampos()"></ion-input>
+    </ion-item>
+    <ion-item><ion-label>Teléfono</ion-label>
+      <ion-input type="text" [(ngModel)]="telefono"  required (input)="validacampos()" ></ion-input>
+    </ion-item>
+    <ion-item><ion-label>Sintomas/Patología</ion-label>
+      <ion-input type="text" [(ngModel)]="patologia"  (input)="validacampos()" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="fecha"   ></ion-datetime>
+    </ion-item>
+
+  <button ion-button full icon-left (click)="save()" [disabled]='!valida'  >
+    <ion-icon name="checkmark"></ion-icon> Agregar Cita
+  </button>
+  <button ion-button block (click)="closeModal()">Cancelar</button>
+  <img src="../assets/imgs/pidecitaenlinea.png">
+  
+</ion-content>
