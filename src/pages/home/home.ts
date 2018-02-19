@@ -22,6 +22,7 @@ export class HomePage {eventSource = [];
   numerocitas:number;
   nombre:string;
   users:any[]=[];
+  slidingItem:any;
   calendar = {
     mode: 'month',
     currentDate: new Date()}
@@ -71,13 +72,45 @@ console.log('Momento:',moment.locale());
     console.error(error);
     });
   }  
-visto(id){
+
+  verdia() {
+ 
+    
+    //this.selectedDay=parseInt(event.year)+'-'+this.themonth+'-'+this.theday+'T00:00:00.183Z';
+    console.log(this.selectedDay);
+    let year=this.selectedDay.substr(0,4);
+    let themonth=this.selectedDay.substr(5,2);
+    let theday=this.selectedDay.substr(8,2);
+    
+    let eldia=year+'-'+themonth+'-'+theday;
+    console.log('DIa:',eldia);
+    this.HttpService.getDia(eldia).subscribe((data) => 
+    {
+    
+    console.log(data['results']);
+    console.log(data['results'].length);
+    this.numerocitas=data['results'].length;
+    this.registros=data['results'];
+  },
+    (error) =>{
+    console.error(error);
+    });
+  }  
+visto(id,slidingItem,j){
+  console.log('Cambiando Atendido');
+ console.log('j:',j);
+  slidingItem.close();
+  console.log('Registros:',this.registros);
+  console.log(this.registros[j].atendido);
+  this.registros[j].atendido=!this.registros[j].atendido;
+  console.log(this.registros[j].atendido);
+  
   this.HttpService.cambiavisto(id).subscribe((data) => 
         {
         },(error) =>{
           console.error(error);
           });
-          
+          this.verdia();
 }
   addEvent() {
    
@@ -121,12 +154,13 @@ visto(id){
         console.error(error);
         });
 
-
+        this.verdia();
         let eventData = data;
         console.log(eventData)
         
       }
     });
+    this.verdia();
   }
 
   milogin() {
