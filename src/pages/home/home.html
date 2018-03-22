@@ -105,6 +105,7 @@ class="calendar">
     <h2>Número de Citas ya programadas</h2>
     <ion-note item-end>
         <ion-badge color="danger">
+          <ion-spinner *ngIf="spin"></ion-spinner>
         <h2>{{numerocitas}}</h2>
         </ion-badge>
     </ion-note> 

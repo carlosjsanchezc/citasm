@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams,ViewController, AlertController } f
   templateUrl: 'event-modal.html',
 })
 export class EventModalPage {
-  event = { nombre: '', cedula:'',fecha:'',telefono:'',patologia:'' };
+  event = { nombre: '', cedula:'',fecha:'',telefono:'',patologia:'',opcion:'agregarcita' };
   valida:boolean=false;
   fecha=new Date().toISOString();
   nombre:string;
@@ -35,12 +35,12 @@ console.log(this.fecha);
   }
   
   save() {
-    this.event.fecha=this.fecha;
+    this.event.fecha=this.fecha.substr(0,10);
     this.event.cedula=this.cedula;
     this.event.nombre=this.nombre;
     this.event.telefono=this.telefono;
     this.event.patologia=this.patologia;
-    
+    this.event.opcion='agregarcita';
 
     this.viewCtrl.dismiss(this.event);
   }

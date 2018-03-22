@@ -22,6 +22,7 @@ export class HomePage {eventSource = [];
   numerocitas:number;
   nombre:string;
   users:any[]=[];
+  spin:boolean;
   slidingItem:any;
   calendar = {
     mode: 'month',
@@ -58,11 +59,14 @@ console.log('Momento:',moment.locale());
     console.log('Buscando Data');
     
     this.selectedDay=parseInt(event.year)+'-'+this.themonth+'-'+this.theday+'T00:00:00.183Z';
+
     console.log(this.selectedDay);
-    let eldia=parseInt(event.year)+'-'+themonth+'-'+theday;
+    let eldia=parseInt(event.year)+'-'+this.themonth+'-'+this.theday;
+    console.log('Eldia:',eldia);
+    this.spin=true;
     this.HttpService.getDia(eldia).subscribe((data) => 
     {
-    
+    this.spin=false;
     console.log(data['results']);
     console.log(data['results'].length);
     this.numerocitas=data['results'].length;
@@ -83,7 +87,7 @@ console.log('Momento:',moment.locale());
     let theday=this.selectedDay.substr(8,2);
     
     let eldia=year+'-'+themonth+'-'+theday;
-    console.log('DIa:',eldia);
+    console.log('Dia xxxxxxxx:',eldia);
     this.HttpService.getDia(eldia).subscribe((data) => 
     {
     
@@ -189,7 +193,7 @@ visto(id,slidingItem,j){
             console.log('Users;');
             console.log(this.users);
             console.log('Nombre:');
-            this.nombre=this.users[0].nombre;
+            this.nombre=this.users['nombre'];
             console.log(this.nombre);
   
           }

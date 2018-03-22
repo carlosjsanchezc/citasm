@@ -3,22 +3,29 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class HttpService {
-
-  constructor(
+  urlbase:string;
+  constructor( 
+  
     private http: HttpClient
-  ) {}
+  ) {
+
+    this.urlbase="https://lycexpress.com/appcitas/appcitas.php";
+  }
+
 
  getDia(dia) {
-    return this.http.get('https://dc2.com.ve/appcitas/verdia.php?dia='+dia);
+   console.log('Dia que llega:');
+   console.log(dia);
+    return this.http.get(this.urlbase+"?opcion=verdia&fecha="+dia);
   }
   login(user,password) {
-    return this.http.get('https://dc2.com.ve/appcitas/login.php?user='+user+'&password='+password);
+    return this.http.get(this.urlbase+'?opcion=login&user='+user+'&password='+password);
   }
   agregarCita(cita) {
-    return this.http.post('https://dc2.com.ve/appcitas/agregacita.php',JSON.stringify(cita), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+    return this.http.get(this.urlbase+'?opcion=agregarcita&fecha='+cita.fecha+'&nombre='+cita.nombre+'&telefono='+cita.telefono+'&patologia='+cita.patologia+'&cedula='+cita.cedula);
   }
   cambiavisto(id) {
-    return this.http.get('https://dc2.com.ve/appcitas/cambiavisto.php?id='+id);
+    return this.http.get(this.urlbase+'?opcion=cambiavisto&id='+id);
   }
    
 

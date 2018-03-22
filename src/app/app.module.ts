@@ -8,12 +8,12 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home'; 
 import { TabsPage } from '../pages/tabs/tabs';
-
+import { EventModalPage } from '../pages/event-modal/event-modal';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginModalPage } from '../pages/login-modal/login-modal';
 
-import { EventModalPage } from '../pages/event-modal/event-modal';
+
 import { CalendarModule } from 'ionic3-calendar-en';
 import { HttpService } from '../providers/http-service';
  
