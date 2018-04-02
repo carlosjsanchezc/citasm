@@ -28,6 +28,7 @@ console.log('Asignando Fecha:');
 this.nombre='';
 this.cedula='';
 this.telefono='';
+this.patologia='';
 console.log(this.fecha);
     this.fecha=preselectedDate;
     console.log(this.fecha);

@@ -81,7 +81,7 @@ console.log('Momento:',moment.locale());
  
     
     //this.selectedDay=parseInt(event.year)+'-'+this.themonth+'-'+this.theday+'T00:00:00.183Z';
-    console.log(this.selectedDay);
+    console.log('Ver dia:',this.selectedDay);
     let year=this.selectedDay.substr(0,4);
     let themonth=this.selectedDay.substr(5,2);
     let theday=this.selectedDay.substr(8,2);
@@ -128,7 +128,7 @@ visto(id,slidingItem,j){
       if (data) {
         let loader = this.loadingCtrl.create({
           content: "Procesando Datos...",
-          duration: 3000
+          duration: 1000
         });
         loader.present();
         this.HttpService.agregarCita(data).subscribe((data2) => 
