@@ -1,8 +1,9 @@
 {
   "name": "CitasM",
-  "app_id": "d0184660",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "d0184660",
+  "id": "d0184660"
 }

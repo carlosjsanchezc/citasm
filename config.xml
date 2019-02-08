@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="13" id="io.ionic.CitasMOB" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>CitasM</name>
-    <description>Programador de citas médicas del Dr Oscar Barazarte.</description>
+<widget android-versionCode="13" id="io.ionic.JLLD" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>JLLD</name>
+    <description>Programador de citas médicas del José LuisLópez Dopico</description>
     <author email="carlosjsanchezc@gmail.com" href="">CS Solutions Networks C.A.</author>
     <content src="index.html" />
     <access origin="*" />
@@ -18,7 +18,8 @@
     <preference name="FadeSplashScreen" value="false" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutohideSplashScreen" value="false" />
+    <preference name="SplashScreenDelay" value="30000" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />

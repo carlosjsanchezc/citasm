@@ -29,7 +29,7 @@ class="calendar">
             <h2>Sumario Citas</h2>
         
 <ion-list>
-    <ion-item *ngIf="numerocitas > 0; else templateName" color="primary"  >
+    <ion-item *ngIf="numerocitas > 0; else templateName" color="primary" no-lines  >
         <ion-row>
          <ion-col col-4>
            <h2 ion-text color="light" style="font-size:1.2rem" >Nombre</h2>
@@ -48,7 +48,7 @@ class="calendar">
         </ion-row>        
     </ion-item>
     <ng-template #templateName>
-      <ion-item color="secondary">
+      <ion-item color="secondary" no-lines>
           <h2 >No hay personas registradas para este día</h2>
 
       </ion-item>
@@ -67,7 +67,7 @@ class="calendar">
           </ion-col>
           <ion-col col-3>
               <h4 style="font-size:0.8rem">{{registro.telefono}}</h4>
-        
+              {{registro.atendido}} 
           </ion-col>
           
           <ion-col col-2 style="font-size:2rem" color="light">
@@ -109,6 +109,9 @@ class="calendar">
         <h2>{{numerocitas}}</h2>
         </ion-badge>
     </ion-note> 
+  </ion-item>
+  <ion-item>
+    Hora disponible: {{proxCitaStr}}
   </ion-item>
 </div>
 </ion-content>

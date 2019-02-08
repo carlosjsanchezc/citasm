@@ -24,6 +24,9 @@ export class HomePage {eventSource = [];
   users:any[]=[];
   spin:boolean;
   slidingItem:any;
+  config:any;
+  proximacita:Date;
+  proxCitaStr:string;
   calendar = {
     mode: 'month',
     currentDate: new Date()}
@@ -31,17 +34,26 @@ export class HomePage {eventSource = [];
   constructor(public navCtrl: NavController,private modalCtrl: ModalController, public HttpService:HttpService, public alertCtrl:AlertController,public loadingCtrl:LoadingController) 
   { 
     moment.locale('es');
-console.log('Momento:',moment.locale());
+    console.log('Momento:',moment.locale());
     this.viewTitle='Prueba Modal';
     this.nombre='';
+      
+  this.HttpService.getConfig().subscribe((data) => 
+  {
+    console.log("Config:",data);
+    this.HttpService.maximo=data['maximo'];
+    this.HttpService.periodo=data['periodo'];
+    this.HttpService.empieza=data['empieza'];
+  },(error) =>{
+    console.error(error);
+    });
   }
 
   
 
   onDaySelect(event) {
- 
+    let year=parseInt(event.year);
     let theday=parseInt(event.date);
-    console.log('TheDay:',theday);
     this.theday=parseInt(event.date).toString();
     if (theday<10)
     {
@@ -55,22 +67,28 @@ console.log('Momento:',moment.locale());
     {
       this.themonth='0'+themonth;
     }
- 
-    console.log('Buscando Data');
-    
     this.selectedDay=parseInt(event.year)+'-'+this.themonth+'-'+this.theday+'T00:00:00.183Z';
-
-    console.log(this.selectedDay);
-    let eldia=parseInt(event.year)+'-'+this.themonth+'-'+this.theday;
-    console.log('Eldia:',eldia);
+     let eldia=parseInt(event.year)+'-'+this.themonth+'-'+this.theday;
     this.spin=true;
     this.HttpService.getDia(eldia).subscribe((data) => 
     {
     this.spin=false;
-    console.log(data['results']);
-    console.log(data['results'].length);
     this.numerocitas=data['results'].length;
     this.registros=data['results'];
+    console.log(event.year);
+    console.log(event.month);
+    console.log(event.date);
+    
+    this.proximacita=new Date(event.year,event.month,event.date,this.HttpService.empieza,0,0);
+    console.log("Proxima Cita:",this.proximacita);
+    this.proximacita.setMinutes(this.proximacita.getMinutes()+30*this.numerocitas);
+    this.proxCitaStr=this.proximacita.toLocaleTimeString();
+    if (this.numerocitas>=this.HttpService.maximo)
+    {
+      this.proxCitaStr="No hay mas cupos para este día";
+    }  
+
+    console.log("Sumado 30:",this.proxCitaStr);
   },
     (error) =>{
     console.error(error);
@@ -81,18 +99,18 @@ console.log('Momento:',moment.locale());
  
     
     //this.selectedDay=parseInt(event.year)+'-'+this.themonth+'-'+this.theday+'T00:00:00.183Z';
-    console.log('Ver dia:',this.selectedDay);
     let year=this.selectedDay.substr(0,4);
     let themonth=this.selectedDay.substr(5,2);
     let theday=this.selectedDay.substr(8,2);
-    
     let eldia=year+'-'+themonth+'-'+theday;
-    console.log('Dia xxxxxxxx:',eldia);
+    this.proximacita=new Date(parseInt(year),parseInt(themonth),parseInt(theday),this.HttpService.empieza,0,0);
+    console.log("Proxima Citax:",this.proximacita);
+    //this.proximacita.setDate(this.proximacita.getMinutes()+30/48);
+    console.log("Sumado 30X");
+    //console.log("Sumado 30",this.proximacita);
     this.HttpService.getDia(eldia).subscribe((data) => 
     {
     
-    console.log(data['results']);
-    console.log(data['results'].length);
     this.numerocitas=data['results'].length;
     this.registros=data['results'];
   },
@@ -105,9 +123,23 @@ visto(id,slidingItem,j){
  console.log('j:',j);
   slidingItem.close();
   console.log('Registros:',this.registros);
-  console.log(this.registros[j].atendido);
-  this.registros[j].atendido=!this.registros[j].atendido;
-  console.log(this.registros[j].atendido);
+  console.log('Antes:',this.registros[j].atendido);
+  /*
+  if (this.registros[j].atendido==0) 
+  {
+
+    console.log('era 0');
+    this.registros[j].atendido=1;
+    console.log('Despues de 0:',this.registros[j].atendido);
+  }
+  else
+  {
+    console.log('era 1');
+
+    this.registros[j].atendido=0;
+  }
+   */
+  console.log('Despues:',this.registros[j].atendido);
   
   this.HttpService.cambiavisto(id).subscribe((data) => 
         {
@@ -181,7 +213,7 @@ visto(id,slidingItem,j){
      
         this.HttpService.login(data.user,data.password).subscribe((data2) => 
         {
-          if (data2['success']==true){
+          if (data2['exito']==true){
             let loader = this.loadingCtrl.create({
               content: "Validando Login...",
               duration: 3000

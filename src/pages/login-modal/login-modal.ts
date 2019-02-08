@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import {  NavController, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the EventModalPage page.
@@ -19,7 +19,7 @@ export class LoginModalPage {
   nombre:string;
   user:string;
   password:string;
-  constructor(public navCtrl: NavController, private navParams: NavParams, public viewCtrl: ViewController) 
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController) 
   {
 
     
