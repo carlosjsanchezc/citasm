@@ -37,6 +37,8 @@ getConfig()
     return this.http.get(this.urlbase+'?opcion=cambiavisto&dr=jlld&id='+id);
   }
    
-
+  eliminar(id) {
+    return this.http.get(this.urlbase+'?opcion=eliminar&dr=jlld&id='+id);
+  }
 
 }

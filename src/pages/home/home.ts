@@ -113,7 +113,7 @@ export class HomePage {
 
 
   onDaySelect(event) {
-    console.log(event);
+    //console.log(event);
 
     let year = parseInt(event.year);
     let theday = parseInt(event.date);
@@ -214,7 +214,15 @@ export class HomePage {
 
     this.verdia();
   }
-
+  eliminar(id){
+    this.HttpService.eliminar(id).subscribe((data2) => {
+ 
+        this.verdia();
+      },
+        (error) => {
+          console.error(error);
+        });
+  }
   milogin() {
     let myModal = this.modalCtrl.create(LoginModalPage, { selectedDay: this.selectedDay });
     myModal.present();
