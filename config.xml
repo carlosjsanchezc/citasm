@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="13" id="io.ionic.JLLD" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>JLLD</name>
-    <description>Programador de citas médicas del José LuisLópez Dopico</description>
+<widget android-versionCode="14" id="cono.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Cono Gumina</name>
+    <description>Programador de citas médicas del Dr. Cono Gumina</description>
     <author email="carlosjsanchezc@gmail.com" href="">CS Solutions Networks C.A.</author>
     <content src="index.html" />
     <access origin="*" />

@@ -29,7 +29,7 @@ export class HomePage {
   config: any;
   proximacita: Date;
   proxCitaStr: string;
-  cita = { nombre: "", cedula: "", telefono: "", patologia: "", fecha: "" };
+  cita = { nombre: "", cedula: "", telefono: "", patologia: "", fecha: "",hora:"" };
 
   calendar = {
     mode: 'month',
@@ -47,6 +47,11 @@ export class HomePage {
     this.cita.telefono = "";
     this.cita.patologia = "";
     this.cita.fecha = "";
+    let fecha=new Date();
+    let year=fecha.getFullYear();
+    let month=fecha.getMonth();
+    let day=fecha.getDate();
+    this.onDaySelect({year:year,month:month,date:day});
     this.HttpService.getConfig().subscribe((data) => {
       console.log("Config:", data);
       this.HttpService.maximo = data['maximo'];
@@ -101,8 +106,10 @@ export class HomePage {
             this.cita.patologia = data.patologia;
             this.cita.telefono = data.telefono;
             this.cita.fecha = this.selectedDay;
+            this.cita.hora=this.proxCitaStr;
             this.addEvent2(this.cita);
             this.verdia();
+            
             //this.onDaySelect({ year: this.theyear, month: this.themonth, date: this.theday });
           }
         }
@@ -114,7 +121,7 @@ export class HomePage {
 
   onDaySelect(event) {
     //console.log(event);
-
+console.log(event);
     let year = parseInt(event.year);
     let theday = parseInt(event.date);
     this.theday = parseInt(event.date).toString();
@@ -166,6 +173,23 @@ export class HomePage {
       });
   }
 
+  verdia2() {
+    let year = this.selectedDay.substr(0, 4);
+    let themonth = this.selectedDay.substr(5, 2);
+    let theday = this.selectedDay.substr(8, 2);
+    let eldia = year + '-' + themonth + '-' + theday;
+
+    this.HttpService.getDia(eldia).subscribe((data) => {
+      this.numerocitas = data['results'].length;
+      this.registros = data['results'];
+      this.proximacita = new Date(parseInt(year), parseInt(themonth), parseInt(theday), this.HttpService.empieza, 0, 0);
+      this.proximacita.setMinutes(this.proximacita.getMinutes() + 30 * this.numerocitas);
+      this.proxCitaStr = this.proximacita.toLocaleTimeString();
+    },
+      (error) => {
+        console.error(error);
+      });
+  }
 
   visto(id, slidingItem, j) {
     slidingItem.close();

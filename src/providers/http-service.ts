@@ -24,21 +24,21 @@ getConfig()
 }
  getDia(dia) {
 
-    return this.http.get(this.urlbase+"?opcion=verdia&dr=jlld&fecha="+dia);
+    return this.http.get(this.urlbase+"?opcion=verdia&dr=cono&fecha="+dia);
   }
   login(user,password) {
 
-    return this.http.get(this.urlbase+'?opcion=login&dr=jlld&user='+user+'&password='+password);
+    return this.http.get(this.urlbase+'?opcion=login&dr=cono&user='+user+'&password='+password);
   }
   agregarCita(cita) {
-    return this.http.get(this.urlbase+'?opcion=agregarcita&dr=jlld&fecha='+cita.fecha+'&nombre='+cita.nombre+'&telefono='+cita.telefono+'&patologia='+cita.patologia+'&cedula='+cita.cedula);
+    return this.http.get(this.urlbase+'?opcion=agregarcita&dr=cono&fecha='+cita.fecha+'&nombre='+cita.nombre+'&telefono='+cita.telefono+'&patologia='+cita.patologia+'&cedula='+cita.cedula+'&hora='+cita.hora);
   }
   cambiavisto(id) {
-    return this.http.get(this.urlbase+'?opcion=cambiavisto&dr=jlld&id='+id);
+    return this.http.get(this.urlbase+'?opcion=cambiavisto&dr=cono&id='+id);
   }
    
   eliminar(id) {
-    return this.http.get(this.urlbase+'?opcion=eliminar&dr=jlld&id='+id);
+    return this.http.get(this.urlbase+'?opcion=eliminar&dr=cono&id='+id);
   }
 
 }
